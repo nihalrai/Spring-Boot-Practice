@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SB_CUST")
-@NamedQuery(name = "fetch-all", query="select c from Customer c")
+@NamedQuery(name = "fetch-all", query = "select c from Customer c")
 @NamedQuery(name = "fetch-login", query = ("select c.id from Customer c where c.email = :email and c.password = :password"))
 public class Customer {
 
@@ -26,17 +26,28 @@ public class Customer {
 	private String email;
 	private String password;
 
+	private String profilePicPath;
+
 	public Customer() {
 		super();
 	}
 
-	public Customer(int id, String name, LocalDate dateOfBirth, String email, String password) {
+	public Customer(int id, String name, LocalDate dateOfBirth, String email, String password,String profilePicPath) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.dateOfBirth = dateOfBirth;
 		this.email = email;
 		this.password = password;
+		this.profilePicPath = profilePicPath;
+	}
+
+	public String getProfilePicPath() {
+		return profilePicPath;
+	}
+
+	public void setProfilePicPath(String profilePicPath) {
+		this.profilePicPath = profilePicPath;
 	}
 
 	public int getId() {

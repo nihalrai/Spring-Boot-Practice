@@ -19,10 +19,10 @@ import com.lti.repository.CustomerRepository;
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 class ApplicationTests {
-	
+
 	@Autowired
 	CustomerRepository customerRepo;
-	
+
 	@Test
 	void add() {
 		Customer c = new Customer();
@@ -30,18 +30,27 @@ class ApplicationTests {
 		c.setEmail("nihalrai@example.com");
 		c.setPassword("nihalrai");
 		c.setDateOfBirth(LocalDate.of(1998, 9, 11));
-		
+
 		customerRepo.save(c);
-		//assert missing
+		// assert missing
 	}
-	
+
 	@Test
 	void findAll() {
 		List<Customer> listOfCustomers = customerRepo.findAll();
-		
-		for(Customer c: listOfCustomers) {
-			System.out.println(c.getId() + " , " + c.getName() + " , " + c.getDateOfBirth() + " , " + c.getEmail());;
+
+		for (Customer c : listOfCustomers) {
+			System.out.println(c.getId() + " , " + c.getName() + " , " + c.getDateOfBirth() + " , " + c.getEmail());
+			;
 		}
-		//assert missing
+		// assert missing
+	}
+
+	@Test
+	void findByEmailAndPassword() {
+
+		int id = customerRepo.findByUsernamePassword("nihalrai@example.com", "nihalrai");
+		System.out.println(id);
+		// assert missing
 	}
 }

@@ -30,12 +30,18 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 	public List<Customer> findAll() {
 		return entityManager.createNamedQuery("fetch-all").getResultList();
 	}
-	
+
+	@Override      
+	public boolean isCustomerPresent(String email) {
+		return ((Number)entityManager.createQuery("select count(c.email) from Customer c where c.email = :em")
+				.setParameter("em", email)
+				.getSingleResult()).intValue() == 1 ? true:false;
+		// assert missing
+	}
+
 	@Override
 	public int findByUsernamePassword(String email, String password) {
-		return (Integer) entityManager.createNamedQuery("fetech-login")
-				.setParameter("email", email)
-				.setParameter("password", password)
-				.getSingleResult();
+		return (int) entityManager.createNamedQuery("fetch-login").setParameter("email", email)
+				.setParameter("password", password).getSingleResult();
 	}
 }
